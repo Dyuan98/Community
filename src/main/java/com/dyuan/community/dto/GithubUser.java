@@ -6,16 +6,16 @@ package com.dyuan.community.dto;
  */
 
 public class GithubUser {
-    private String user;
+    private String login;
     private long id;
     private String bio;
 
-    public String getUser() {
-        return user;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public long getId() {
