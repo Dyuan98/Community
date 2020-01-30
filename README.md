@@ -9,13 +9,15 @@
 [Bootstrap文档](https://v3.bootcss.com/https://v3.bootcss.com/)  
 [Github OAuth](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)  
 [OK Http](https://square.github.io/okhttp/)  
-[Spring-boot Mybatis整合](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/index.html)
+[Spring-boot Mybatis整合](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/index.html)  
+[thymeleaf文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#setting-attribute-values)
 ### 工具
 [maven仓库](https://mvnrepository.com/)  
 [Git 下载](https://git-scm.com/download)  
 [H2数据库](http://www.h2database.com/html/quickstart.html)  
 [visual-paradigm](https://www.visual-paradigm.com)  
-[flyway](https://flywaydb.org/getstarted/firststeps/maven)
+[flyway管理数据库](https://flywaydb.org/getstarted/firststeps/maven)  
+[Lombok通过注解简化程序](https://projectlombok.org/setup/maven)
 ### 脚本
 ___user表创建语句：___
 ```sql

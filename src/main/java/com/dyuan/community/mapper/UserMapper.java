@@ -22,5 +22,9 @@ public interface UserMapper {
     // 查询语句，查找对应token的用户信息
     @Select("select * from user where token = #{token}")
     User findByToken(@Param("token") String token);
+
+    // 查询语句，通过id查找信息
+    @Select("select * from user where id = #{id}")
+    User findById(@Param("id")Integer id);
 }
 

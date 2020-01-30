@@ -1,15 +1,14 @@
-package com.dyuan.community.model;
+package com.dyuan.community.dto;
 
+import com.dyuan.community.model.User;
 import lombok.Data;
 
 /**
- * 用户提出问题的Javabean
  * @author dyuan
- * @date 2020/1/30 18:04
+ * @date 2020/1/30 23:23
  */
-// 使用lombok的@Data注解自动生成setter,getter方法
 @Data
-public class Question {
+public class QuestionDTO {
     private Integer id;
     private String title;
     private String description;
@@ -20,4 +19,5 @@ public class Question {
     private Integer likeCount;
     private Integer commentCount;
     private String tag;
+    private User user;
 }

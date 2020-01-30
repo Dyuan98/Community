@@ -88,10 +88,10 @@ public class PublishController{
         question.setDescription(description);   // 问题描述
         question.setTag(tag);                   // 问题标签
         question.setCreator(user.getId());      // 用户ID
-        question.setGmt_create(System.currentTimeMillis());  // 问题创建时间
-        question.setGmt_modified(question.getGmt_create());  // 问题修改时间
+        question.setGmtCreate(System.currentTimeMillis());  // 问题创建时间
+        question.setGmtModified(question.getGmtCreate());  // 问题修改时间
 
         questionMapper.create(question);
-        return "redirect:index";
+        return "redirect:/index";
     }
 }

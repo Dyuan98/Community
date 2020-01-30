@@ -42,10 +42,10 @@ public class AuthorizeController {
                            HttpServletResponse response) {
         // 实例化AccessTokenDTO对象，传入对应值
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
-        accessTokenDTO.setClient_id(clientId);
-        accessTokenDTO.setClient_secret(clientSecret);
+        accessTokenDTO.setClientId(clientId);
+        accessTokenDTO.setClientSecret(clientSecret);
         accessTokenDTO.setCode(code);
-        accessTokenDTO.setRedirect_uri(redirectUri);
+        accessTokenDTO.setRedirectUri(redirectUri);
         accessTokenDTO.setState(state);
         // 获取accessToken
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
@@ -60,7 +60,7 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
-            user.setAvatarUrl(githubUser.getAvatar_url());
+            user.setAvatarUrl(githubUser.getAvatarUrl());
             // 登陆成功，将用户信息存入数据库
             userMapper.insert(user);
             // 将生成的token放在cookie里
