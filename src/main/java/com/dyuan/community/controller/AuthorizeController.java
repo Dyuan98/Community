@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 /**
+ * 实现登陆模块授权
  * @author dyuan
  * @date 2020/1/22 21:19
  */
@@ -69,7 +70,7 @@ public class AuthorizeController {
             // 登陆失败，重新登陆
                     System.out.println("失败-------------------");
         }
-        return "redirect:/";
+        return "redirect:/index";
 
 
     }

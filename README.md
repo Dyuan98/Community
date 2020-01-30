@@ -14,9 +14,10 @@
 [maven仓库](https://mvnrepository.com/)  
 [Git 下载](https://git-scm.com/download)  
 [H2数据库](http://www.h2database.com/html/quickstart.html)  
-[visual-paradigm](https://www.visual-paradigm.com)
+[visual-paradigm](https://www.visual-paradigm.com)  
+[flyway](https://flywaydb.org/getstarted/firststeps/maven)
 ### 脚本
-___user表建立语句：___
+___user表创建语句：___
 ```sql
 create table USER
 (
@@ -29,4 +30,8 @@ create table USER
     constraint USER_PK
         primary key (ID)
 );
+```
+___flyway脚本语句___
+```bash
+mvn flyway:migrate
 ```

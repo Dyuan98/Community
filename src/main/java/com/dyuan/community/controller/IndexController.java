@@ -1,15 +1,13 @@
 package com.dyuan.community.controller;
 
 import com.dyuan.community.mapper.UserMapper;
-import com.dyuan.community.dto.GithubUser;
 import com.dyuan.community.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 /**
  * @author dyuan
@@ -20,8 +18,8 @@ public class IndexController {
     @Autowired(required = false)
     private UserMapper userMapper;
 
-    @GetMapping("/")
-    public String index(HttpServletRequest request){
+    @GetMapping("/index")
+    public String index( HttpServletRequest request){
         Cookie[] cookies = request.getCookies(); // 获取请求得到的cookie数组
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("token")){
@@ -33,5 +31,5 @@ public class IndexController {
                 break;
             }
         }
-        return "index"; }
+        return "/index"; }
 }
