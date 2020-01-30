@@ -7,7 +7,7 @@ package com.dyuan.community.dto;
 
 public class GithubUser {
     private String login;
-    private long id;
+    private Long id;
     private String bio;
 
     public String getLogin() {
@@ -18,11 +18,11 @@ public class GithubUser {
         this.login = login;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -52,7 +52,7 @@ public class AuthorizeController {
         // 获取GithubUser的信息
         GithubUser githubUser = githubProvider.getUser(accessToken);
         // 判断用户是否登陆成功
-        if (githubUser!=null){
+        if (githubUser!=null && githubUser.getId()!= null){
             User user = new User();
             String token = UUID.randomUUID().toString(); // 生成一个唯一的token
             user.setToken(token);
