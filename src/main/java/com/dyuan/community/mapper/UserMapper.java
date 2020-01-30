@@ -15,8 +15,8 @@ import org.apache.ibatis.annotations.Select;
 public interface UserMapper {
 
     // 实现插入语句，将用户信息存入数据库
-    @Insert("insert into user(account_id,name,token,gmt_create,gmt_modified)" +
-            " values (#{accountId},#{name},#{token},#{gmtCreate},#{gmtModified})")
+    @Insert("insert into user(account_id,name,token,gmt_create,gmt_modified,avatar_url)" +
+            " values (#{accountId},#{name},#{token},#{gmtCreate},#{gmtModified},#{avatarUrl})")
     void insert(User user);
 
     // 查询语句，查找对应token的用户信息

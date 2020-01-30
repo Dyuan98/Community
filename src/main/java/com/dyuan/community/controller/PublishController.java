@@ -65,15 +65,16 @@ public class PublishController{
         // 判断user是否登录，未登陆报错，不能发布问题,并通过user获取发布问题用户的id
         User user = null;
         Cookie[] cookies = request.getCookies(); // 获取请求得到的cookie数组
-
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")){
-                String token = cookie.getValue();
-                user = userMapper.findByToken(token);
-                if (user!=null){
-                    request.getSession().setAttribute("user",user);
+        if(cookies!=null&&cookies.length!=0) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    String token = cookie.getValue();
+                    user = userMapper.findByToken(token);
+                    if (user != null) {
+                        request.getSession().setAttribute("user", user);
+                    }
+                    break;
                 }
-                break;
             }
         }
         if (user ==null){
