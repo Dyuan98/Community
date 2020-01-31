@@ -71,7 +71,7 @@ public class AuthorizeController {
             // 登陆失败，重新登陆
                     System.out.println("失败-------------------");
         }
-        return "redirect:/index";
+        return "redirect:/";
 
 
     }

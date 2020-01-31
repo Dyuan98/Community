@@ -25,7 +25,7 @@ public class IndexController {
     @Autowired(required = false)
     private QuestionService questionService;
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String index(HttpServletRequest request,
                         Model model){
 

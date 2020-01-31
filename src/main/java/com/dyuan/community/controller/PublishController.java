@@ -92,6 +92,6 @@ public class PublishController{
         question.setGmtModified(question.getGmtCreate());  // 问题修改时间
 
         questionMapper.create(question);
-        return "redirect:/index";
+        return "redirect:/";
     }
 }

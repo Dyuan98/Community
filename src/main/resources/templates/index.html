@@ -50,11 +50,11 @@
                     </ul>
                 </li>
                 <li th:if="${session.user == null}">
-                    <a href="https://github.com/login/oauth/authorize?client_id=e8d155118dbbea706f82&redirect_uri=http://localhost:8888/callback&scope=user&state=1">登录</a></li>
-
+                    <a href="https://github.com/login/oauth/authorize?client_id=e8d155118dbbea706f82&redirect_uri=http://localhost:8888/callback&scope=user&state=1">登录</a>
+                </li>
             </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </div>
+    </div>
 </nav>
 
 <!--论坛帖子展示部分-->
@@ -75,7 +75,7 @@
                     <h4 class="media-heading" th:text="${question.title}"></h4>
                     <span th:text="${question.description}"></span> <br>
                     <span class="text-desc"> <span th:text="${question.commentCount}"></span>个回复 • <span th:text="${question.viewCount}"></span>
-                        次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd')}"></span> </span>
+                        次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span> </span>
                 </div>
             </div>
         </div>
