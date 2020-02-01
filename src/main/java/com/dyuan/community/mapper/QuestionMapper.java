@@ -21,11 +21,19 @@ public interface QuestionMapper {
             " values (#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{commentCount},#{viewCount},#{likeCount},#{tag})")
     void create(Question question);
 
-    // 分页查询所有问题
+    // 分页查询所有用户的问题，用于显示在论坛主页面
     @Select("select * from question limit #{offset},#{size}")
     List<Question> list(@Param(value = "offset") Integer offset,@Param(value = "size") Integer size); // 传入非对象时，需要@Param 映射
 
     // 查询数据库信息行数
     @Select("select count(1) from question")
     Integer count();
+
+    // 分页查询当前用户的问题，用于显示此用户独有的信息
+    @Select("select * from question where creator = #{userAccountId} limit #{offset},#{size}")
+    List<Question> listByUserId(@Param(value = "userAccountId")Integer userAccountId, @Param(value = "offset")Integer offset,@Param(value = "size") Integer size);
+
+    // 查询数据库此用户发布的信息行数
+    @Select("select count(1) from question where creator = #{userAccountId}")
+    Integer countByUserId(@Param(value = "userAccountId")Integer userAccountId);
 }
