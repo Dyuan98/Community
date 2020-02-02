@@ -36,4 +36,8 @@ public interface QuestionMapper {
     // 查询数据库此用户发布的信息行数
     @Select("select count(1) from question where creator = #{userAccountId}")
     Integer countByUserId(@Param(value = "userAccountId")Integer userAccountId);
+
+    // 根据问题的id查询该问题的所有信息
+    @Select("select * from question where id = #{id}")
+    Question getById(@Param(value = "id")Integer id);
 }

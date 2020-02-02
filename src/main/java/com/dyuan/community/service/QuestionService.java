@@ -17,6 +17,7 @@ import java.util.List;
  * 第一次创建，同时使用QuestionMapper和UserMapper，起到组装的作用，返回带有question所有属性及user对象 返回questionDTOList
  * 第二次更改，同时组装 QuestionDTOList和分页信息，返回带有question所有属性及user对象还有分页信息 返回paginationDto
  * 第三次更改，增加带有UserId参数的list方法，用于返回当前登录用户的提问问题
+ * 第四次更改，增加带有questionid参数的方法，用于返回此id问题的具体信息
  * @author dyuan
  * @date 2020/1/30 23:27
  */
@@ -83,5 +84,15 @@ public class QuestionService {
         paginationDTO.setQuestions(questionDTOList);  // 将questionDTOList数组存入paginationDTO中
         return paginationDTO;  // 返回页面信息
 
+    }
+
+    // 通过问题的id获得某个问题的具体信息，用于展示问题的具体信息页面
+    public QuestionDTO getById(Integer id) {
+        Question question = questionMapper.getById(id);
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(question,questionDTO);  //将question对象上的所有属性值copy到questionDTO对应的属性中
+        User user = userMapper.findById(question.getCreator());   // 通过question获取的此问题创作者的userId在user表中查找对应user具体信息
+        questionDTO.setUser(user);
+        return questionDTO;
     }
 }
