@@ -1,7 +1,6 @@
 package com.dyuan.community.controller;
 
 import com.dyuan.community.mapper.QuestionMapper;
-import com.dyuan.community.mapper.UserMapper;
 import com.dyuan.community.model.Question;
 import com.dyuan.community.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -26,8 +24,7 @@ public class PublishController{
     //注入
     @Autowired(required = false)
     private QuestionMapper questionMapper;
-    @Autowired(required = false)
-    private UserMapper userMapper;
+
 
     // 返回到渲染publish界面
     @GetMapping("/publish")
@@ -63,20 +60,7 @@ public class PublishController{
         }
 
         // 判断user是否登录，未登陆报错，不能发布问题,并通过user获取发布问题用户的id
-        User user = null;
-        Cookie[] cookies = request.getCookies(); // 获取请求得到的cookie数组
-        if(cookies!=null&&cookies.length!=0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    user = userMapper.findByToken(token);
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
-        }
+        User user = (User)request.getSession().getAttribute("user");
         if (user ==null){
             model.addAttribute("error","用户未登录");
             return "/publish";   // 提交错误，返回提交界面
