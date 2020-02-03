@@ -37,4 +37,5 @@ create table USER
 ___flyway脚本语句___
 ```bash
 mvn flyway:migrate
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 ```

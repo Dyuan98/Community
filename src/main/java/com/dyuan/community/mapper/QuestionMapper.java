@@ -1,10 +1,7 @@
 package com.dyuan.community.mapper;
 
 import com.dyuan.community.model.Question;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -40,4 +37,8 @@ public interface QuestionMapper {
     // 根据问题的id查询该问题的所有信息
     @Select("select * from question where id = #{id}")
     Question getById(@Param(value = "id")Integer id);
+
+    // 根据问题的id更新数据库对应的问题信息
+    @Update("update question set title = #{title}, description = #{description}, tag = #{tag}, gmt_modified = #{gmtModified} where id = #{id}")
+    void update(Question question);
 }

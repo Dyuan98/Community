@@ -20,6 +20,7 @@ import java.util.UUID;
 
 /**
  * 实现登陆模块授权
+ * 和退出登录
  * @author dyuan
  * @date 2020/1/22 21:19
  */
@@ -39,8 +40,6 @@ public class AuthorizeController {
     @Value("${github.redirect.uri}")
     private String redirectUri;
 
-//    @Autowired(required = false)
-//    private UserMapper userMapper;  // h2数据库存入用户登录信息所用的javabean
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name ="code")String code,
@@ -68,8 +67,6 @@ public class AuthorizeController {
             user.setAvatarUrl(githubUser.getAvatarUrl());
             userService.createOrUpdate(user);  // 判断此用户是否登陆过，若登陆过，则只需更新token即可，若第一次登陆，学在数据库中插入user信息
             // 登陆成功，将用户信息存入数据库
-//            userMapper.insert(user);
-            // 将生成的token放在cookie里
             response.addCookie(new Cookie("token", token));
 //            request.getSession().setAttribute("user",githubUser);
         }else{
@@ -77,7 +74,16 @@ public class AuthorizeController {
                     System.out.println("失败-------------------");
         }
         return "redirect:/";
+    }
 
-
+    // 退出登录
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,
+                         HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token",null);  //将token设为null
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
     }
 }

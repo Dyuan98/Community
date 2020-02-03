@@ -1,19 +1,22 @@
 package com.dyuan.community.controller;
 
+import com.dyuan.community.dto.QuestionDTO;
 import com.dyuan.community.mapper.QuestionMapper;
 import com.dyuan.community.model.Question;
 import com.dyuan.community.model.User;
+import com.dyuan.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 发布问题模块
+ * 发布及编辑问题模块
  * @author dyuan
  * @date 2020/1/30 14:31
  */
@@ -21,10 +24,22 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class PublishController{
-    //注入
-    @Autowired(required = false)
-    private QuestionMapper questionMapper;
 
+    @Autowired(required = false)
+    private QuestionService questionService;
+
+    // 编辑已经发布过的问题
+    @GetMapping("/publish/{id}")
+    public String edit(@PathVariable(name = "id")Integer id,
+                       Model model){
+        QuestionDTO question = questionService.getById(id);
+        // 将原问题内容回显到页面上
+        model.addAttribute("title",question.getTitle());
+        model.addAttribute("description",question.getDescription());
+        model.addAttribute("tag",question.getTag());
+        model.addAttribute("id",question.getId());  //获取问题的唯一标识
+        return "publish";
+    }
 
     // 返回到渲染publish界面
     @GetMapping("/publish")
@@ -39,6 +54,7 @@ public class PublishController{
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "tag", required = false) String tag,
+            @RequestParam(value = "id", required = false) Integer id,
             HttpServletRequest request,
             Model model){
 
@@ -74,8 +90,8 @@ public class PublishController{
         question.setCreator(user.getAccountId());      // 用户gitHub账号的accountId
         question.setGmtCreate(System.currentTimeMillis());  // 问题创建时间
         question.setGmtModified(question.getGmtCreate());  // 问题修改时间
-
-        questionMapper.create(question);
+        question.setId(id);  // 保存问题的id，用此id查找数据库中的对应问题
+        questionService.createOrUpdate(question);  // 判断该问题是否存在，若存在则进行更新操作，若不存在则进行插入操作
         return "redirect:/";
     }
 }

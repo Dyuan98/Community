@@ -18,6 +18,7 @@ import java.util.List;
  * 第二次更改，同时组装 QuestionDTOList和分页信息，返回带有question所有属性及user对象还有分页信息 返回paginationDto
  * 第三次更改，增加带有UserId参数的list方法，用于返回当前登录用户的提问问题
  * 第四次更改，增加带有questionid参数的方法，用于返回此id问题的具体信息
+ * 第五次更改，增加带有Question对象参数的方法，用于判断此问题在数据库是否存在，若存在则进行更新操作，不存在则进行插入操作
  * @author dyuan
  * @date 2020/1/30 23:27
  */
@@ -94,5 +95,22 @@ public class QuestionService {
         User user = userMapper.findById(question.getCreator());   // 通过question获取的此问题创作者的userId在user表中查找对应user具体信息
         questionDTO.setUser(user);
         return questionDTO;
+    }
+
+    // 用于判断此问题是新创建还是更新编辑进行插入或更新操作
+    public void createOrUpdate(Question question) {
+
+        if(question.getId() == null){
+            // 插入数据库问题信息
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.create(question);
+        }else{
+            // 更新原有问题信息
+            question.setGmtModified(System.currentTimeMillis());
+            questionMapper.update(question);
+        }
+
+
     }
 }

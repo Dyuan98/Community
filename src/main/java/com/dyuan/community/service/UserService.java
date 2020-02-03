@@ -26,8 +26,8 @@ public class UserService {
             userMapper.insert(user);
         }else{
             // 更新原有用户信息
-            dbUser.setGmtCreate(System.currentTimeMillis());
-            dbUser.setGmtModified(user.getGmtCreate());
+//            dbUser.setGmtCreate(System.currentTimeMillis());
+            dbUser.setGmtModified(System.currentTimeMillis());
             dbUser.setName(user.getName());
             dbUser.setToken(user.getToken());
             userMapper.update(dbUser);
