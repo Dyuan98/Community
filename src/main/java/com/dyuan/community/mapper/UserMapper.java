@@ -1,10 +1,7 @@
 package com.dyuan.community.mapper;
 
 import com.dyuan.community.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 
 /**
@@ -24,7 +21,15 @@ public interface UserMapper {
     User findByToken(@Param("token") String token);
 
     // 查询语句，通过id查找信息
-    @Select("select * from user where id = #{id}")
-    User findById(@Param("id")Integer id);
+    @Select("select * from user where account_id = #{accountId}")
+    User findById(@Param("accountId")String accountId);
+
+    // 查询语句，判断此accountId在数据库是否能查到
+    @Select("select * from user where account_id = #{accountId}")
+    User findByAccountId(@Param("accountId")String accountId);
+
+    // 更新语句，更新用户登录时的信息
+    @Update("update user set name = #{name}, token = #{token}, gmt_modified = #{gmtModified}, avatar_url = #{avatarUrl} where account_id =#{accountId}")
+    void update(User dbUser);
 }
 

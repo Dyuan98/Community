@@ -6,6 +6,7 @@ import com.dyuan.community.dto.GithubUser;
 import com.dyuan.community.mapper.UserMapper;
 import com.dyuan.community.model.User;
 import com.dyuan.community.provider.GithubProvider;
+import com.dyuan.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,10 @@ import java.util.UUID;
 public class AuthorizeController {
     @Autowired    // 把Spring容器里实例化的实例加载到当前上下文
     private GithubProvider githubProvider;
+
+    @Autowired
+    private UserService userService;
+
     //读取配置文件中的值
     @Value("${github.client.id}")
     private String clientId;
@@ -33,8 +38,10 @@ public class AuthorizeController {
     private String clientSecret;
     @Value("${github.redirect.uri}")
     private String redirectUri;
-    @Autowired(required = false)
-    private UserMapper userMapper;  // h2数据库存入用户登录信息所用的javabean
+
+//    @Autowired(required = false)
+//    private UserMapper userMapper;  // h2数据库存入用户登录信息所用的javabean
+
     @GetMapping("/callback")
     public String callback(@RequestParam(name ="code")String code,
                            @RequestParam(name ="state")String state,
@@ -58,14 +65,12 @@ public class AuthorizeController {
             user.setToken(token);
             user.setName(githubUser.getLogin());
             user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatarUrl());
+            userService.createOrUpdate(user);  // 判断此用户是否登陆过，若登陆过，则只需更新token即可，若第一次登陆，学在数据库中插入user信息
             // 登陆成功，将用户信息存入数据库
-            userMapper.insert(user);
+//            userMapper.insert(user);
             // 将生成的token放在cookie里
             response.addCookie(new Cookie("token", token));
-            // System.out.println(githubUser.getLogin());
 //            request.getSession().setAttribute("user",githubUser);
         }else{
             // 登陆失败，重新登陆

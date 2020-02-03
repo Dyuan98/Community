@@ -71,7 +71,7 @@ public class PublishController{
         question.setTitle(title);               // 问题标题
         question.setDescription(description);   // 问题描述
         question.setTag(tag);                   // 问题标签
-        question.setCreator(Integer.valueOf(user.getAccountId()));      // 用户gitHub账号的accountId
+        question.setCreator(user.getAccountId());      // 用户gitHub账号的accountId
         question.setGmtCreate(System.currentTimeMillis());  // 问题创建时间
         question.setGmtModified(question.getGmtCreate());  // 问题修改时间
 

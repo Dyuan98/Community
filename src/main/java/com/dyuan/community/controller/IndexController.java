@@ -1,6 +1,7 @@
 package com.dyuan.community.controller;
 
 import com.dyuan.community.dto.PaginationDTO;
+import com.dyuan.community.dto.QuestionDTO;
 import com.dyuan.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,5 +30,6 @@ public class IndexController {
 
         PaginationDTO pagination = questionService.list(page, size);  // 接收service层返回的页面信息
         model.addAttribute("pagination",pagination);  // 将获取的question信息列表存入model中,以便在index.html中使用
+
         return "/index"; }
 }
